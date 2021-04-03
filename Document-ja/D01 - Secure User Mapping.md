@@ -18,11 +18,11 @@
 
 基本的には二つの選択肢があります。
 
-シンプルなコンテナのシナリオでは、コンテナを構築する際に適切なパラメータを使用して `RUN useradd <username>` または `RUN adduser <username>` を追加する必要があります。それぞれ同じことがグループ ID にも当てはまります。次に、マイクロサービスを開始する前に、 `USER <username>` [3] でこのユーザーに切り替わります。標準のウェブサーバーは 80 や 443 などのポートを使用したがることに注意してください。ユーザーを設定しても 1024 未満のポートにサーバーをバインドすることはできません。どんなサービスでも低いポートにバインドする必要はまったくありません。より高いポートを設定し、それに応じて expose コマンド [4] でこのポートをマップする必要があります。
+シンプルなコンテナのシナリオでは、コンテナを構築する際に適切なパラメータを使用して `RUN useradd <username>` または `RUN adduser <username>` を追加する必要があります。それぞれ同じことがグループ ID にも当てはまります。次に、マイクロサービスを開始する前に、 `USER <username>` [3] でこのユーザーに切り替わります。標準のウェブサーバーは 80 や 443 などのポートを使用したがることに注意してください。ユーザーを設定しても 1024 未満のポートにサーバーをバインドすることはできません。どんなサービスでも低いポートにバインドする必要はまったくありません。より高いポートを設定し、それに応じて expose コマンド [4] でこのポートをマップする必要があります。バイナリが他の理由で root を必要とする場合、完全な root 権限ではなく `setcap` を使用してのみ権限を与えることができます [5] 。
 
-二つ目の選択肢は Linux *ユーザー名前空間* を使用することです。名前空間は Linux カーネルリソースの異なる (偽の) ビューをコンテナに提供するための一般的な手段です。ユーザー、ネットワーク、PID、IPC などのさまざまなリソースを利用できます。 `namespaces(7)` を参照してください。 *ユーザー名前空間* の場合、コンテナには標準の root ユーザーの相対的なパースペクティブを提供できますが、ホストカーネルはこれを別のユーザー ID にマップします。詳細は [5] `cgroup_namespaces(7)` および `user_namespaces(7)` を参照してください。
+二つ目の選択肢は Linux *ユーザー名前空間* を使用することです。名前空間は Linux カーネルリソースの異なる (偽の) ビューをコンテナに提供するための一般的な手段です。ユーザー、ネットワーク、PID、IPC などのさまざまなリソースを利用できます。 `namespaces(7)` を参照してください。 *ユーザー名前空間* の場合、コンテナには標準の root ユーザーの相対的なパースペクティブを提供できますが、ホストカーネルはこれを別のユーザー ID にマップします。詳細は [6] `cgroup_namespaces(7)` および `user_namespaces(7)` を参照してください。
 
-名前空間を使用する上での注意点は一度に一つの名前空間しか実行できないことです。ユーザー名前空間を実行する場合、たとえば同じホストでネットワーク名前空間を使用することはできません [6] 。また、コンテナごとに明示的に異なる設定をしない限り、ホスト上のすべてのコンテナはデフォルトの名前空間になります。
+名前空間を使用する上での注意点は一度に一つの名前空間しか実行できないことです。ユーザー名前空間を実行する場合、たとえば同じホストでネットワーク名前空間を使用することはできません [7] 。また、コンテナごとに明示的に異なる設定をしない限り、ホスト上のすべてのコンテナはデフォルトの名前空間になります。
 
 いずれにしてもまだ取得されていないユーザー ID を使用してください。たとえばコンテナでサービスを実行し、コンテナの外部で `systemd` ユーザーにマップする場合、これが必ずしも良いとは限りません。
 
@@ -54,8 +54,9 @@
 * [1] [OWASP: Security by Design Principles](https://www.owasp.org/index.php/Security_by_Design_Principles#Principle_of_Least_privilege)
 * [3] [Docker Docs: USER command](https://docs.docker.com/engine/reference/builder/#user)
 * [4] [Docker Docs: EXPOSE command](https://docs.docker.com/engine/reference/builder/#expose)
-* [5] [Docker Docs: Isolate containers with a user namespace](https://docs.docker.com/engine/security/userns-remap/)
-* [6] [Docker Docs: User namespace known limitations](https://docs.docker.com/engine/security/userns-remap/#user-namespace-known-restrictions)
+* [5] Rasene's blog: https://raesene.github.io/blog/2017/07/23/network-tools-in-nonroot-docker-images/
+* [6] [Docker Docs: Isolate containers with a user namespace](https://docs.docker.com/engine/security/userns-remap/)
+* [7] [Docker Docs: User namespace known limitations](https://docs.docker.com/engine/security/userns-remap/#user-namespace-known-restrictions)
 
 ### コマーシャル
 
