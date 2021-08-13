@@ -27,7 +27,7 @@ This is the unofficial Japanese translation of the [OWASP Docker Top 10](https:/
 
 ## License
 
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/)
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## Author (日本語訳)
 
