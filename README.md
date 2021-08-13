@@ -24,3 +24,11 @@ This is the unofficial Japanese translation of the [OWASP Docker Top 10](https:/
 * [D09 - 不変パラダイムの準拠](Document-ja/D09%20-%20Follow%20Immutable%20Paradigm.md)
 * [D10 - ログ記録](Document-ja/D10%20-%20Logging.md)
 * [次に向けて](Document-ja/E11%20-%20What's%20Next?.md)
+
+## License
+
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/)
+
+## Author (日本語訳)
+
+[Koki Takeyama](https://github.com/coky-t)
