@@ -29,6 +29,6 @@ This is the unofficial Japanese translation of the [OWASP Docker Top 10](https:/
 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-## Author (日本語訳)
+## Translator (Japanese)
 
 [Koki Takeyama](https://github.com/coky-t)
